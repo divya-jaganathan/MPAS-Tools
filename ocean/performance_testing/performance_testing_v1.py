@@ -22,17 +22,45 @@ import re
 import matplotlib.pyplot as plt
 import datetime
 
+from cluster_info import cluster_info
+from gen_batch_script import gen_batch_script
+
+# ---------
+# Variables to set:
+cluster_name = 'cori-haswell'
+cores_count_array = [32, 128, 512, 2048, 8192, 32768]
+nsamples_per_procnum = 3
+# ---------
 
 # Getting present runtime timestamp: To be written in data and for file names
 timestamp = datetime.datetime.now()
 timenow = timestamp.strftime('%Y%m%d_%H%M%S')
 
-# -------
 
 nprocs_max = 32
 niter = int (np.log2(nprocs_max))
 nsamples_per_procnum = 3
 
+for cores_count in cores_count_array:
+    
+    # get cluster info
+    cluster = cluster_info(cluster_name)
+    
+    # generate batch script
+    batch_fname = '_'.join(('batch/'+cluster_name,
+                            str(cores_count)+'cores',
+                            timenow,
+                            '.sh'
+                            ))   
+    gen_batch_script(batch_fname=batch_fname,  
+                     cores_count=cores_count, 
+                     cores_per_node=cluster['cores_per_node'],
+                     module_str=cluster['module_str'],
+                     hardware_constraint=cluster['hardware_constraint']
+                     )
+
+
+'''
 time=np.zeros(shape=(1,niter))
 procs=np.zeros(shape=(1,niter))
 
@@ -42,7 +70,11 @@ j=niter
 writefilename="data_gr_"+timenow+".txt"
 fw=open(writefilename,'a+')
 fw.write('Time is: %s \n Format: #Procs|Sample Runs|Average \n' % timestamp)
+'''
 
+
+
+'''    
 while i > 1:
 
         sample=nsamples_per_procnum
@@ -113,3 +145,4 @@ figurenamepath="figures/fig_gr"+timenow+".png"
 plt.savefig(figurenamepath)
 
 # End Version 1
+'''
