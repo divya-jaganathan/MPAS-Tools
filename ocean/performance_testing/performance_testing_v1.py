@@ -38,30 +38,43 @@ batch_dir = 'batch'
 timestamp = datetime.datetime.now()
 timenow = timestamp.strftime('%Y%m%d_%H%M%S')
 
-# create directory for batch files (if it doesn't exist)
-if not os.path.exists(batch_dir):
-    os.makedirs(batch_dir)
+
+all_out_fnames = []  # this will store the names of each output file 
 
 for cores_count in cores_count_array:
+    
+    # make directory for batch files and .out files for this experiment (set of iterations)
+    exp_dir = 'np'+str(cores_count)
+    if not os.path.exists(exp_dir):
+        os.makedirs(exp_dir)
     
     # get cluster info
     cluster = cluster_info(cluster_name)
     
     # generate a unique batch script for each iteration
     for iteration in range(iterations_count): 
-    
-        batch_fname = '_'.join((os.path.join(batch_dir, cluster_name),
-                                str(cores_count)+'cores',
-                                timenow,
-                                'run'+str(iteration)+'.sh'
-                                ))   
+        
+        job_name = '_'.join((cluster_name, 
+                             'np'+str(cores_count), 
+                             timenow, 
+                             'run'+str(iteration)))
+        
+        batch_fname = os.path.join(exp_dir, job_name+'.sh')
+        out_fname = os.path.join(exp_dir, job_name+'.out')
+        
         # generate batch script
-        gen_batch_script(batch_fname=batch_fname,  
+        gen_batch_script(execut_fname='ocean_model',
+                         batch_fname=batch_fname,
+                         out_fname=out_fname,
+                         job_name=job_name,
                          cores_count=cores_count, 
                          cores_per_node=cluster['cores_per_node'],
                          module_str=cluster['module_str'],
                          hardware_constraint=cluster['hardware_constraint']
                          )
+        
+        # store output filename for later
+        all_out_fnames.append(out_fname)
 
 
 '''
