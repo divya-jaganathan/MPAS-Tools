@@ -24,7 +24,8 @@ import datetime
 
 
 # Getting present runtime timestamp: To be written in data and for file names
-timenow=datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
+timestamp = datetime.datetime.now()
+timenow = timestamp.strftime('%Y%m%d_%H%M%S')
 
 # -------
 
