@@ -21,6 +21,7 @@ import numpy as np
 import re
 import matplotlib.pyplot as plt
 import datetime
+import os
 
 from cluster_info import cluster_info
 from gen_batch_script import gen_batch_script
@@ -29,35 +30,38 @@ from gen_batch_script import gen_batch_script
 # Variables to set:
 cluster_name = 'cori-haswell'
 cores_count_array = [32, 128, 512, 2048, 8192, 32768]
-nsamples_per_procnum = 3
+iterations_count = 5  # number of runs per core count
+batch_dir = 'batch'
 # ---------
 
 # Getting present runtime timestamp: To be written in data and for file names
 timestamp = datetime.datetime.now()
 timenow = timestamp.strftime('%Y%m%d_%H%M%S')
 
-
-nprocs_max = 32
-niter = int (np.log2(nprocs_max))
-nsamples_per_procnum = 3
+# create directory for batch files (if it doesn't exist)
+if not os.path.exists(batch_dir):
+    os.makedirs(batch_dir)
 
 for cores_count in cores_count_array:
     
     # get cluster info
     cluster = cluster_info(cluster_name)
     
-    # generate batch script
-    batch_fname = '_'.join(('batch/'+cluster_name,
-                            str(cores_count)+'cores',
-                            timenow,
-                            '.sh'
-                            ))   
-    gen_batch_script(batch_fname=batch_fname,  
-                     cores_count=cores_count, 
-                     cores_per_node=cluster['cores_per_node'],
-                     module_str=cluster['module_str'],
-                     hardware_constraint=cluster['hardware_constraint']
-                     )
+    # generate a unique batch script for each iteration
+    for iteration in range(iterations_count): 
+    
+        batch_fname = '_'.join((os.path.join(batch_dir, cluster_name),
+                                str(cores_count)+'cores',
+                                timenow,
+                                'run'+str(iteration)+'.sh'
+                                ))   
+        # generate batch script
+        gen_batch_script(batch_fname=batch_fname,  
+                         cores_count=cores_count, 
+                         cores_per_node=cluster['cores_per_node'],
+                         module_str=cluster['module_str'],
+                         hardware_constraint=cluster['hardware_constraint']
+                         )
 
 
 '''
