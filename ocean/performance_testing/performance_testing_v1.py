@@ -31,7 +31,6 @@ from gen_batch_script import gen_batch_script
 cluster_name = 'cori-haswell'
 cores_count_array = [32, 128, 512, 2048, 8192, 32768]
 iterations_count = 5  # number of runs per core count
-batch_dir = 'batch'
 # ---------
 
 # Getting present runtime timestamp: To be written in data and for file names
