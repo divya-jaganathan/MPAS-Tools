@@ -17,9 +17,9 @@ def cluster_info(cluster_name):
         
         cores_per_node = 36
         hardware_constraint = ''
-        module_str = "module use /usr/projects/climate/SHARED_CLIMATE/modulefiles/all\n",
-        "module load python/anaconda-2.7-climate\n",
-        "module load gcc/5.3.0 openmpi/1.10.5 netcdf/4.4.1 parallel-netcdf/1.5.0 pio/1.7.2\n"
+        module_str = ("module use /usr/projects/climate/SHARED_CLIMATE/modulefiles/all\n"
+                      "module load python/anaconda-2.7-climate\n"
+                      "module load gcc/5.3.0 openmpi/1.10.5 netcdf/4.4.1 parallel-netcdf/1.5.0 pio/1.7.2\n")
         
     elif cluster_name == 'edison':
         
