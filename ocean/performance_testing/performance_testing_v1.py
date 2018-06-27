@@ -2,7 +2,7 @@
 
 """
  Name: performance_and_testing.py
- Author: Divya Jaganathan
+ Author: Divya Jaganathan, Kevin Rosa
  Date:  26 June, 2018
 
  Version 1:
