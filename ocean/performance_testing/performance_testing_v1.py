@@ -75,7 +75,9 @@ for cores_count in cores_count_array:
         
         # store output filename for later
         all_out_fnames.append(out_fname)
-
+        
+        # submit the job
+        subprocess.check_call('sbatch',batch_fname)
 
 '''
 time=np.zeros(shape=(1,niter))
