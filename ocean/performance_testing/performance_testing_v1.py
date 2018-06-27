@@ -19,7 +19,7 @@ NOTE(s):1. YOU MUST LOAD THE NECESSARY MODULES BEFOREHAND: metis and OpenMPI
 import subprocess
 import numpy as np
 import re
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import datetime
 import os
 
@@ -28,7 +28,7 @@ from gen_batch_script import gen_batch_script
 
 # ---------
 # Variables to set:
-cluster_name = 'cori-haswell'
+cluster_name = 'grizzly'
 cores_count_array = [32, 128, 512, 2048, 8192, 32768]
 iterations_count = 5  # number of runs per core count
 # ---------
