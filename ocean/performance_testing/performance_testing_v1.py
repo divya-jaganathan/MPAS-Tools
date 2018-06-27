@@ -24,14 +24,7 @@ import datetime
 
 
 # Getting present runtime timestamp: To be written in data and for file names
-
-timestamp = datetime.datetime.now()
-dd=str(timestamp.day)
-mm=str(timestamp.month)
-yy=str(timestamp.year)
-hr=str(timestamp.hour)
-mn=str(timestamp.minute)
-timenow=yy+mm+dd+"_"+hr+mn
+timenow=datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
 
 # -------
 
