@@ -57,6 +57,9 @@ for cores_count in cores_count_array:
         if not os.path.exists(job_dir):
             os.makedirs(job_dir)
         
+        # cd
+        os.chdir(job_dir)
+
         #batch_fname = os.path.join(job_dir, job_name+'.sh')
         #out_fname = os.path.join(job_dir, job_name+'.out')
         batch_fname = job_name+'.sh'
@@ -79,8 +82,7 @@ for cores_count in cores_count_array:
         sp.check_call(['ln','-isf', os.path.join(top_level,'streams.ocean'), os.path.join(job_dir,'.')])
         sp.check_call(['ln','-isf', os.path.join(top_level,'namelist.ocean'), os.path.join(job_dir,'.')])
         
-        # change directory and submit the job
-        os.chdir(job_dir)
+        # submit the job
         sp.check_call(['sbatch',batch_fname])
         
         # store output filename for later
