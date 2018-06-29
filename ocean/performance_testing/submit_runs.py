@@ -17,7 +17,7 @@ from gen_batch_script import gen_batch_script
 # Variables to set:
 cluster_name = 'grizzly'
 cores_count_array = [32, 128, 512, 2048, 8192, 32768]
-iterations_count = 5  # number of runs per core count
+iterations_count = 2  # number of runs per core count
 qos = 'standby'
 # directory where ocean_model, streams.ocean, namelist.ocean, metis, and graph.info are stored:
 top_level = '/lustre/scratch2/turquoise/kanga/mpas_ocean_runs/MPAS-O_V6.0_test_cases/MPAS-O_V6.0_QU240/'
@@ -77,10 +77,11 @@ for cores_count in cores_count_array:
                          hardware_constraint=cluster['hardware_constraint']
                          )
         
-        # link graph.info.N, streams, and namelist files to job_dir
+        # link graph.info.N, ocean_model, streams, and namelist files to job_dir
         sp.check_call(['ln','-isf', os.path.join(exp_dir,'graph.info.part.'+str(cores_count)), os.path.join(job_dir,'.')])
         sp.check_call(['ln','-isf', os.path.join(top_level,'streams.ocean'), os.path.join(job_dir,'.')])
         sp.check_call(['ln','-isf', os.path.join(top_level,'namelist.ocean'), os.path.join(job_dir,'.')])
+        sp.check_call(['cp','-d', os.path.join(top_level,'ocean_model'), os.path.join(job_dir,'.')])
         
         # submit the job
         sp.check_call(['sbatch',batch_fname])
