@@ -18,6 +18,7 @@ from gen_batch_script import gen_batch_script
 cluster_name = 'grizzly'
 cores_count_array = [32, 128, 512, 2048, 8192, 32768]
 iterations_count = 5  # number of runs per core count
+qos = 'standby'
 # directory where ocean_model, streams.ocean, namelist.ocean, metis, and graph.info are stored:
 top_level = '/lustre/scratch2/turquoise/kanga/mpas_ocean_runs/MPAS-O_V6.0_test_cases/MPAS-O_V6.0_QU240/'
 # ---------
@@ -65,6 +66,7 @@ for cores_count in cores_count_array:
                          out_fname=out_fname, 
                          job_name=job_name,
                          cores_count=cores_count, 
+                         qos=qos,
                          cores_per_node=cluster['cores_per_node'],
                          module_str=cluster['module_str'],
                          hardware_constraint=cluster['hardware_constraint']
