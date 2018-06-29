@@ -57,8 +57,10 @@ for cores_count in cores_count_array:
         if not os.path.exists(job_dir):
             os.makedirs(job_dir)
         
-        batch_fname = os.path.join(job_dir, job_name+'.sh')
-        out_fname = os.path.join(job_dir, job_name+'.out')
+        #batch_fname = os.path.join(job_dir, job_name+'.sh')
+        #out_fname = os.path.join(job_dir, job_name+'.out')
+        batch_fname = job_name+'.sh'
+        out_fname = job_name+'.out'
         
         # generate batch script
         gen_batch_script(execut_fname='./ocean_model',
