@@ -48,5 +48,3 @@ def cluster_info(cluster_name):
             'module_str':module_str}
  
     
-a = cluster_info('cori-knl')
-a['cores_per_node']
