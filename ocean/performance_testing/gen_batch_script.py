@@ -1,14 +1,6 @@
 # -*- coding: utf-8 -*-
-def main():
-    import datetime
-    time_str = datetime.datetime.now().strftime('%Y.%m.%d.%H.%M.%S')
-    fname = 'batch_test'+time_str+'.sh'
-    
-    gen_batch_script(batch_fname=fname, module_str='module load ecjoi', cores_count=90, cores_per_node=16)
-
-# https://github.com/divya-jaganathan/MPAS-Tools/tree/ocean_performance_testing/ocean/performance_testing
 def gen_batch_script(
-        execut_fname='ocean_model',  # path to executable file
+        execut_fname='./ocean_model',  # path to executable file
         batch_fname='batch_test.sh',
         out_fname='newjob.out', 
         job_name='newjob',  # this determines output file name too
@@ -71,7 +63,3 @@ def gen_batch_script(
     # write to file
     with open(batch_fname, 'w') as batch_file:
         batch_file.write(output)
-
-
-if __name__ == '__main__':
-    main()
