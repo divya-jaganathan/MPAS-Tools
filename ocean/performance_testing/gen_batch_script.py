@@ -17,6 +17,7 @@ def gen_batch_script(
         cores_per_node=16,
         hardware_constraint='',
         time='1:00:00',
+        qos='regular'
         ):
     """
     Construct batch script.
@@ -39,6 +40,7 @@ def gen_batch_script(
             "#SBATCH --time="+time,
             "#SBATCH --job_name="+job_name,
             "#SBATCH --output="+out_fname,
+            "#SBATCH --qos="+qos,
             "#SBATCH --license=SCRATCH"
             ))
     
