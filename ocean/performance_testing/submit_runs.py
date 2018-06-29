@@ -39,8 +39,8 @@ for cores_count in cores_count_array:
     
     # change directory and generate graph.info.N
     os.chdir(exp_dir)
-    sp.check_call('ln','-isf', os.path.join(top_level,'graph.info'), os.path.join(exp_dir,'.'))
-    sp.check_call('cp','-d', os.path.join(top_level,'metis'), os.path.join(exp_dir,'.'))
+    sp.check_call(['ln','-isf', os.path.join(top_level,'graph.info'), os.path.join(exp_dir,'.')])
+    sp.check_call(['cp','-d', os.path.join(top_level,'metis'), os.path.join(exp_dir,'.')])
     sp.check_call(['./metis', 'graph.info', str(cores_count)])
     
     
@@ -73,12 +73,12 @@ for cores_count in cores_count_array:
                          )
         
         # link streams and namelist files to job_dir
-        sp.check_call('ln','-isf', os.path.join(top_level,'streams.ocean'), os.path.join(job_dir,'.'))
-        sp.check_call('ln','-isf', os.path.join(top_level,'namelist.ocean'), os.path.join(job_dir,'.'))
+        sp.check_call(['ln','-isf', os.path.join(top_level,'streams.ocean'), os.path.join(job_dir,'.')])
+        sp.check_call(['ln','-isf', os.path.join(top_level,'namelist.ocean'), os.path.join(job_dir,'.')])
         
         # change directory and submit the job
         os.chdir(job_dir)
-        sp.check_call('sbatch',batch_fname)
+        sp.check_call(['sbatch',batch_fname])
         
         # store output filename for later
         all_out_fnames.append(out_fname)
