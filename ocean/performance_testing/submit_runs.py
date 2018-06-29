@@ -72,10 +72,14 @@ for cores_count in cores_count_array:
                          hardware_constraint=cluster['hardware_constraint']
                          )
         
-        # store output filename for later
-        all_out_fnames.append(out_fname)
+        # link streams and namelist files to job_dir
+        sp.check_call('ln','-isf', os.path.join(top_level,'streams.ocean'), os.path.join(job_dir,'.'))
+        sp.check_call('ln','-isf', os.path.join(top_level,'namelist.ocean'), os.path.join(job_dir,'.'))
         
         # change directory and submit the job
         os.chdir(job_dir)
         sp.check_call('sbatch',batch_fname)
+        
+        # store output filename for later
+        all_out_fnames.append(out_fname)
 
