@@ -17,7 +17,8 @@ def gen_batch_script(
         cores_per_node=16,
         hardware_constraint='',
         time='1:00:00',
-        qos='regular'
+        qos='regular',
+        license=''
         ):
     """
     Construct batch script.
@@ -39,8 +40,7 @@ def gen_batch_script(
             "#SBATCH --time="+time,
             "#SBATCH --job_name="+job_name,
             "#SBATCH --output="+out_fname,
-            "#SBATCH --qos="+qos,
-            "#SBATCH --license=SCRATCH"
+            "#SBATCH --qos="+qos
             ))
     
     # append a hardware constraint if given
@@ -48,7 +48,11 @@ def gen_batch_script(
         output = '\n'.join((
                 output,
                 "#SBATCH --constraint="+hardware_constraint
-                ))    
+                ))   
+        
+    # append license type if given
+    if not license == '':
+        output = '\n'.join((output, "#SBATCH --license="+license)) 
     
     # append module loading
     output = '\n'.join((
