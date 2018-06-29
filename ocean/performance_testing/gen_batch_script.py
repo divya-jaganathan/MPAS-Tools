@@ -35,7 +35,6 @@ def gen_batch_script(
     # SBATCH options specified for all runs
     output = '\n'.join((
             "#! /bin/bash",
-            "#SBATCH --partition=regular",
             "#SBATCH --nodes="+str(nodes_count),
             "#SBATCH --time="+time,
             "#SBATCH --job_name="+job_name,
