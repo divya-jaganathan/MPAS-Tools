@@ -75,7 +75,7 @@ for cores_count in cores_count_array:
                          )
         
         # link graph.info.N, streams, and namelist files to job_dir
-        sp.check_call(['ln','-isf', os.path.join(exp_dir,'graph.info.part.'+str(cores_count), os.path.join(job_dir,'.')])
+        sp.check_call(['ln','-isf', os.path.join(exp_dir,'graph.info.part.'+str(cores_count)), os.path.join(job_dir,'.')])
         sp.check_call(['ln','-isf', os.path.join(top_level,'streams.ocean'), os.path.join(job_dir,'.')])
         sp.check_call(['ln','-isf', os.path.join(top_level,'namelist.ocean'), os.path.join(job_dir,'.')])
         
