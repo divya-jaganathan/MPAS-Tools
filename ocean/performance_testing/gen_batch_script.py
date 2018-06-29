@@ -30,7 +30,7 @@ def gen_batch_script(
             "#! /bin/bash",
             "#SBATCH --nodes="+str(nodes_count),
             "#SBATCH --time="+time,
-            "#SBATCH --job_name="+job_name,
+#            "#SBATCH --job_name="+job_name,
             "#SBATCH --output="+out_fname,
             "#SBATCH --qos="+qos
             ))
