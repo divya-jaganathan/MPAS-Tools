@@ -2,7 +2,7 @@
 def gen_batch_script(
         execut_fname='./ocean_model',  # path to executable file
         batch_fname='batch_test.sh',
-        out_fname='newjob.out', 
+        out_fname='', 
         job_name='newjob',  # this determines output file name too
         module_str='',
         cores_count=1,
