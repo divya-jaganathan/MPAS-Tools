@@ -82,6 +82,10 @@ for cores_count in cores_count_array:
         sp.check_call(['ln','-isf', os.path.join(top_level,'streams.ocean'), os.path.join(job_dir,'.')])
         sp.check_call(['ln','-isf', os.path.join(top_level,'namelist.ocean'), os.path.join(job_dir,'.')])
         sp.check_call(['cp','-d', os.path.join(top_level,'ocean_model'), os.path.join(job_dir,'.')])
+
+        # link initial conditions and forcing 
+        sp.check_call(['ln','-isf', os.path.join(top_level,'init.nc'), os.path.join(job_dir,'.')])
+        sp.check_call(['ln','-isf', os.path.join(top_level,'forcing_data.nc'), os.path.join(job_dir,'.')])
         
         # submit the job
         sp.check_call(['sbatch',batch_fname])
