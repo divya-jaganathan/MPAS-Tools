@@ -17,10 +17,11 @@ from gen_batch_script import gen_batch_script
 # Variables to set:
 cluster_name = 'grizzly'
 cores_count_array = [32, 128, 512, 2048, 8192, 32768]
-iterations_count = 2  # number of runs per core count
+iterations_count = 5  # number of runs per core count
 qos = 'standby'
 # directory where ocean_model, streams.ocean, namelist.ocean, metis, and graph.info are stored:
 top_level = '/lustre/scratch2/turquoise/kanga/mpas_ocean_runs/MPAS-O_V6.0_test_cases/MPAS-O_V6.0_QU240/'
+time_alloc = '0:20:00'
 # ---------
 
 # current time will be used as a unique identifier to avoid overwriting
@@ -68,13 +69,14 @@ for cores_count in cores_count_array:
         # generate batch script
         gen_batch_script(execut_fname='./ocean_model',
                          batch_fname=batch_fname,
-                         out_fname=out_fname, 
+                        # out_fname=out_fname, 
                          job_name=job_name,
                          cores_count=cores_count, 
                          qos=qos,
                          cores_per_node=cluster['cores_per_node'],
                          module_str=cluster['module_str'],
-                         hardware_constraint=cluster['hardware_constraint']
+                         hardware_constraint=cluster['hardware_constraint'],
+                         time=time_alloc
                          )
         
         # link graph.info.N, ocean_model, streams, and namelist files to job_dir
