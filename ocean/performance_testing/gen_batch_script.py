@@ -57,7 +57,8 @@ def gen_batch_script(
     output = '\n'.join((
             output,
             '',
-            "srun --ntasks="+str(cores_count)+' '+execut_fname
+#            "srun --ntasks="+str(cores_count)+' '+execut_fname
+            "srun -n "+str(cores_count)+' '+execut_fname
             ))
     
     # write to file
